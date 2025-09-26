@@ -1,173 +1,356 @@
-import { useState, useEffect } from 'react'
-import { NavLink, useLocation, useNavigate } from 'react-router-dom'
-import { ChevronDown, Home, Menu, X, Package, ShoppingCart, Users, LineChart, Settings as SettingsIcon } from 'lucide-react'
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import {
+  ChevronDown,
+  Home,
+  X,
+  Package,
+  ShoppingCart,
+  Users,
+  LineChart,
+  Settings as SettingsIcon,
+} from "lucide-react";
 
 type SidebarProps = {
-	isOpen: boolean
-	setIsOpen: (open: boolean) => void
-}
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
+};
 
 type NavItem =
-	| { title: string; icon: any; hasDropdown: false; to: string }
-	| { title: string; icon: any; hasDropdown: true; dropdownItems: { label: string; to: string }[] }
+  | {
+      title: string;
+      icon: any;
+      hasDropdown: false;
+      to: string;
+      badge?: number;
+    }
+  | {
+      title: string;
+      icon: any;
+      hasDropdown: true;
+      dropdownItems: {
+        label: string;
+        to: string;
+        badge?: number;
+      }[];
+    };
 
 export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
-	const [activeDropdown, setActiveDropdown] = useState<string>('')
-	const location = useLocation()
-	const navigate = useNavigate()
-	const [hovering, setHovering] = useState(false)
-	const isExpanded = isOpen || hovering
+  const [activeDropdown, setActiveDropdown] = useState<string>("");
+  const [isHovering, setIsHovering] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-	const navItems: NavItem[] = [
-		{ title: 'Dashboard', icon: Home, hasDropdown: false, to: '/' },
-		{
-			title: 'Products',
-			icon: Package,
-			hasDropdown: true,
-			dropdownItems: [
-				{ label: 'All Products', to: '/products' },
-				{ label: 'Add Product', to: '/products/new' },
-				{ label: 'Categories', to: '/products/categories' },
-			],
-		},
-		{
-			title: 'Orders',
-			icon: ShoppingCart,
-			hasDropdown: true,
-			dropdownItems: [
-				{ label: 'All Orders', to: '/orders' },
-				{ label: 'Pending', to: '/orders/pending' },
-				{ label: 'Completed', to: '/orders/completed' },
-			],
-		},
-		{
-			title: 'Customers',
-			icon: Users,
-			hasDropdown: true,
-			dropdownItems: [
-				{ label: 'Customer List', to: '/customers' },
-				{ label: 'Segments', to: '/customers/segments' },
-			],
-		},
-		{ title: 'Analytics', icon: LineChart, hasDropdown: false, to: '/analytics' },
-		{
-			title: 'Settings',
-			icon: SettingsIcon,
-			hasDropdown: true,
-			dropdownItems: [
-				{ label: 'Preferences', to: '/settings' },
-				{ label: 'Security', to: '/settings/security' },
-				{ label: 'Notifications', to: '/settings/notifications' },
-			],
-		},
-	]
+  const isExpanded = isOpen || isHovering;
 
-	useEffect(() => {
-		// auto-open dropdown that contains the current route
-		for (const item of navItems) {
-			if (item.hasDropdown) {
-				const match = item.dropdownItems.some((d) => location.pathname.startsWith(d.to.split('#')[0]))
-				if (match) {
-					setActiveDropdown(item.title)
-					return
-				}
-			}
-		}
-		setActiveDropdown('')
-	}, [location.pathname])
+  const navItems: NavItem[] = [
+    {
+      title: "Dashboard",
+      icon: Home,
+      hasDropdown: false,
+      to: "/",
+      badge: 5,
+    },
+    {
+      title: "Products",
+      icon: Package,
+      hasDropdown: true,
+      dropdownItems: [
+        { label: "All Products", to: "/products", badge: 12 },
+        { label: "Add Product", to: "/products/new" },
+        { label: "Categories", to: "/products/categories", badge: 3 },
+        { label: "Inventory", to: "/products/inventory" },
+      ],
+    },
+    {
+      title: "Orders",
+      icon: ShoppingCart,
+      hasDropdown: true,
+      dropdownItems: [
+        { label: "All Orders", to: "/orders", badge: 24 },
+        { label: "Pending", to: "/orders/pending", badge: 8 },
+        { label: "Completed", to: "/orders/completed" },
+        { label: "Cancelled", to: "/orders/cancelled" },
+      ],
+    },
+    {
+      title: "Customers",
+      icon: Users,
+      hasDropdown: true,
+      dropdownItems: [
+        { label: "Customer List", to: "/customers", badge: 156 },
+        { label: "Segments", to: "/customers/segments" },
+        { label: "Reviews", to: "/customers/reviews" },
+      ],
+    },
+    {
+      title: "Analytics",
+      icon: LineChart,
+      hasDropdown: false,
+      to: "/analytics",
+    },
+    {
+      title: "Settings",
+      icon: SettingsIcon,
+      hasDropdown: true,
+      dropdownItems: [
+        { label: "General", to: "/settings" },
+        { label: "Security", to: "/settings/security" },
+        { label: "Notifications", to: "/settings/notifications" },
+        { label: "Billing", to: "/settings/billing" },
+      ],
+    },
+  ];
 
-	return (
-		<>
-			<div
-				className={`fixed inset-0 z-30 bg-black/40 transition-opacity lg:hidden ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-				onClick={() => setIsOpen(false)}
-			/>
+  // Auto-open dropdown that contains current route
+  useEffect(() => {
+    for (const item of navItems) {
+      if (item.hasDropdown) {
+        const match = item.dropdownItems.some(
+          (dropdownItem) =>
+            location.pathname === dropdownItem.to ||
+            location.pathname.startsWith(dropdownItem.to + "/")
+        );
+        if (match) {
+          setActiveDropdown(item.title);
+          return;
+        }
+      }
+    }
+    setActiveDropdown("");
+  }, [location.pathname]);
 
-			<aside
-				className={`bg-white text-black transition-all duration-300 ease-in-out text-sm border-r border-[rgba(0,0,0,0.08)] fixed inset-y-0 left-0 z-40 ${isExpanded ? 'w-64' : 'w-16'}`}
-				onMouseEnter={() => setHovering(true)}
-				onMouseLeave={() => setHovering(false)}
-			>
-				<div className="p-4 flex justify-between items-center border-b border-[rgba(0,0,0,0.08)]">
-					<h1
-						className={`font-bold overflow-hidden transition-all duration-300 text-lg text-nowrap text-[#3B40E8] ${isExpanded ? 'opacity-100' : 'opacity-0'}`}
-					>
-						Dashboard
-					</h1>
-					<button onClick={() => setIsOpen(!isOpen)} className="hover:bg-[#F3F5F7] p-2 rounded-lg" aria-label="Toggle sidebar">
-						{isOpen ? <X size={20} strokeWidth={1.5} /> : <Menu size={20} strokeWidth={1.5} />}
-					</button>
-				</div>
+  // Close sidebar when clicking on mobile
+  const handleNavigation = (to: string) => {
+    navigate(to);
+    if (window.innerWidth < 1024) {
+      setIsOpen(false);
+    }
+  };
 
-				<nav className="mt-2">
-					{navItems.map((item) => (
-						<div key={item.title}>
-							<div
-								className="px-4 py-3 hover:bg-[#F3F5F7] cursor-pointer flex items-center justify-between"
-								onClick={() => {
-									if (item.hasDropdown && isExpanded) {
-										setActiveDropdown(activeDropdown === item.title ? '' : item.title)
-										return
-									}
-									if ('to' in item) {
-										navigate(item.to)
-										setIsOpen(false)
-									}
-								}}
-							>
-								<div className="flex items-center">
-									{(() => {
-										const isActiveLink = () => {
-											if ('to' in item) {
-												if (item.to === '/') return location.pathname === '/'
-												return location.pathname === item.to || location.pathname.startsWith(item.to + '/')
-											}
-											return false
-										}
-										const isActiveIcon = isActiveLink() || (item.hasDropdown && activeDropdown === item.title)
-										return (
-											<item.icon size={20} strokeWidth={1.5} color={isActiveIcon ? '#3B40E8' : '#000'} />
-										)
-									})()}
-									{'to' in item ? (
-										<NavLink
-											to={item.to}
-											className={({ isActive }) =>
-												`ml-4 whitespace-nowrap overflow-hidden transition-all duration-300 ${isExpanded ? 'w-32 opacity-100' : 'w-0 opacity-0'} ${isActive ? 'text-[#3B40E8] font-medium' : ''}`
-											}
-										>
-											{item.title}
-										</NavLink>
-									) : (
-										<span className={`ml-4 whitespace-nowrap overflow-hidden transition-all duration-300 ${isExpanded ? 'w-32 opacity-100' : 'w-0 opacity-0'}`}>
-											{item.title}
-										</span>
-									)}
-								</div>
-								{item.hasDropdown && isExpanded && (
-									<ChevronDown size={16} strokeWidth={1.5} className={`transition-transform duration-200 ${activeDropdown === item.title ? 'rotate-180' : ''}`} />
-								)}
-							</div>
+  // Close sidebar when clicking outside on mobile
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setIsOpen(false);
+      }
+    };
 
-							{item.hasDropdown && isExpanded && activeDropdown === item.title && (
-								<div className="bg-[#f5f5f5] overflow-hidden transition-all duration-200">
-									{item.dropdownItems?.map((dropdownItem: any) => (
-										<NavLink
-											key={dropdownItem.label}
-											to={dropdownItem.to}
-											className={({ isActive }) => `block px-11 py-2 hover:bg-[#f1f1f1] cursor-pointer text-sm ${isActive ? 'text-[#3B40E8] font-medium' : ''}`}
-										>
-											{dropdownItem.label}
-										</NavLink>
-									))}
-								</div>
-							)}
-						</div>
-					))}
-				</nav>
-			</aside>
-		</>
-	)
+    const handleClickOutside = (event: MouseEvent) => {
+      const sidebar = document.querySelector("aside");
+      if (
+        sidebar &&
+        !sidebar.contains(event.target as Node) &&
+        window.innerWidth < 1024
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setIsOpen]);
+
+  const renderBadge = (count?: number) => {
+    if (!count) return null;
+    return (
+      <span className="bg-red-500 text-white text-xs rounded-full min-w-[20px] h-5 flex items-center justify-center px-1.5">
+        {count > 99 ? "99+" : count}
+      </span>
+    );
+  };
+
+  return (
+    <>
+      {/* Mobile Overlay */}
+      <div
+        className={`fixed inset-0 z-40 bg-black/50 transition-opacity lg:hidden ${
+          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => setIsOpen(false)}
+      />
+
+      {/* Sidebar */}
+      <aside
+        className={`
+          fixed inset-y-0 left-0 z-50 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700
+          transition-all duration-300 ease-in-out
+          flex flex-col
+          ${isExpanded ? "w-64" : "w-16"}
+          ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
+        `}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+      >
+        {/* Header */}
+        <div className="flex-shrink-0 p-4 border-b border-gray-200 dark:border-gray-700">
+          <div className="flex items-center justify-between">
+            <div
+              className={`flex items-center transition-all duration-300 ${
+                isExpanded ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-lg">D</span>
+              </div>
+              <h1 className="ml-3 font-bold text-xl text-gray-900 dark:text-white whitespace-nowrap">
+                Dashboard
+              </h1>
+            </div>
+
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              aria-label="Toggle sidebar"
+            >
+              {isOpen && <X size={20} />}
+            </button>
+          </div>
+        </div>
+
+        {/* Navigation */}
+        <nav className="flex-1 overflow-y-auto py-4">
+          {navItems.map((item) => {
+            const isActive = item.hasDropdown
+              ? item.dropdownItems.some(
+                  (dropdownItem) =>
+                    location.pathname === dropdownItem.to ||
+                    location.pathname.startsWith(dropdownItem.to + "/")
+                )
+              : location.pathname === item.to ||
+                location.pathname.startsWith(item.to + "/");
+
+            const Icon = item.icon;
+
+            return (
+              <div key={item.title} className="mb-1">
+                {/* Main Nav Item */}
+                <div
+                  className={`
+                    mx-2 rounded-lg transition-all duration-200 cursor-pointer
+                    ${
+                      isActive
+                        ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400"
+                        : "hover:bg-gray-100 dark:hover:bg-gray-800"
+                    }
+                  `}
+                >
+                  <div
+                    className="flex items-center justify-between p-3"
+                    onClick={() => {
+                      if (item.hasDropdown && isExpanded) {
+                        setActiveDropdown(
+                          activeDropdown === item.title ? "" : item.title
+                        );
+                      } else if (!item.hasDropdown) {
+                        handleNavigation(item.to);
+                      } else if (!isExpanded) {
+                        handleNavigation(item.dropdownItems[0].to);
+                      }
+                    }}
+                  >
+                    <div className="flex items-center min-w-0">
+                      <Icon
+                        size={20}
+                        className={`flex-shrink-0 ${
+                          isActive
+                            ? "text-blue-600 dark:text-blue-400"
+                            : "text-gray-600 dark:text-gray-400"
+                        }`}
+                      />
+
+                      <span
+                        className={`
+                          ml-3 font-medium whitespace-nowrap transition-all duration-300
+                          ${
+                            isExpanded
+                              ? "opacity-100 max-w-full"
+                              : "opacity-0 max-w-0"
+                          }
+                        `}
+                      >
+                        {item.title}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      {!item.hasDropdown && renderBadge(item.badge)}
+
+                      {item.hasDropdown && isExpanded && (
+                        <ChevronDown
+                          size={16}
+                          className={`transition-transform duration-200 ${
+                            activeDropdown === item.title ? "rotate-180" : ""
+                          }`}
+                        />
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Dropdown Items */}
+                {item.hasDropdown &&
+                  isExpanded &&
+                  activeDropdown === item.title && (
+                    <div className="mt-1 ml-4 overflow-hidden animate-slideDown">
+                      {item.dropdownItems.map((dropdownItem) => {
+                        const isDropdownItemActive =
+                          location.pathname === dropdownItem.to;
+                        return (
+                          <div
+                            key={dropdownItem.label}
+                            className={`
+                            mx-2 rounded-lg transition-all duration-200 cursor-pointer mb-1
+                            ${
+                              isDropdownItemActive
+                                ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400"
+                                : "hover:bg-gray-100 dark:hover:bg-gray-800"
+                            }
+                          `}
+                            onClick={() => handleNavigation(dropdownItem.to)}
+                          >
+                            <div className="flex items-center justify-between p-2 pl-8">
+                              <span className="text-sm font-medium whitespace-nowrap">
+                                {dropdownItem.label}
+                              </span>
+                              {renderBadge(dropdownItem.badge)}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+              </div>
+            );
+          })}
+        </nav>
+
+        {/* User Profile (Optional) */}
+        {isExpanded && (
+          <div className="flex-shrink-0 p-4 border-t border-gray-200 dark:border-gray-700">
+            <div className="flex items-center">
+              <div className="w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded-full flex items-center justify-center">
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  U
+                </span>
+              </div>
+              <div className="ml-3 min-w-0">
+                <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                  User Name
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                  admin@example.com
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+      </aside>
+    </>
+  );
 }
-
-

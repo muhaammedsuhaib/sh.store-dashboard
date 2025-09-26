@@ -1,38 +1,132 @@
-import { useState } from 'react'
-import type { ReactNode } from 'react'
-import { Sidebar } from './Sidebar'
+import { useState, useEffect } from "react";
+import type { ReactNode } from "react";
+import { Sidebar } from "./Sidebar";
+import { Menu, X } from "lucide-react";
 
 type LayoutProps = {
-	children: ReactNode
-}
+  children: ReactNode;
+};
 
 export function Layout({ children }: LayoutProps) {
-    const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-	return (
-		<div className="min-h-dvh bg-neutral-50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100">
-            <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+      if (window.innerWidth >= 1024) {
+        setSidebarOpen(false);
+      }
+    };
 
-            <div className={`${sidebarOpen ? 'lg:pl-64' : 'lg:pl-16'} transition-[padding] duration-300`}>
-				<header className="sticky top-0 z-20 h-16 border-b border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 backdrop-blur flex items-center px-4 gap-3">
-					<button
-						className="lg:hidden inline-flex items-center justify-center h-9 w-9 rounded-md border border-neutral-200 dark:border-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-800"
-						onClick={() => setSidebarOpen((v) => !v)}
-						aria-label="Toggle sidebar"
-					>
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
-							<path fillRule="evenodd" d="M3.75 5.25a.75.75 0 0 1 .75-.75h15a.75.75 0 0 1 0 1.5h-15a.75.75 0 0 1-.75-.75Zm0 6a.75.75 0 0 1 .75-.75h15a.75.75 0 0 1 0 1.5h-15a.75.75 0 0 1-.75-.75Zm0 6a.75.75 0 0 1 .75-.75h15a.75.75 0 0 1 0 1.5h-15a.75.75 0 0 1-.75-.75Z" clipRule="evenodd" />
-						</svg>
-					</button>
-					<div className="font-medium">Shop Dashboard</div>
-				</header>
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
 
-				<main className="p-4">
-					{children}
-				</main>
-			</div>
-		</div>
-	)
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // Add global CSS for animations
+  useEffect(() => {
+    const style = document.createElement("style");
+    style.textContent = `
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-slideDown {
+        animation: slideDown 0.2s ease-out;
+      }
+    `;
+    document.head.appendChild(style);
+
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+      <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
+
+      {/* Main Content */}
+      <div
+        className={`
+          transition-all duration-300 ease-in-out min-h-screen
+          ${sidebarOpen && !isMobile ? "lg:ml-64" : "lg:ml-16"}
+          ${sidebarOpen && isMobile ? "ml-0" : "ml-0"}
+        `}
+      >
+        {/* Header */}
+        <header className="sticky top-0 z-30 h-16 border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
+          <div className="h-full px-4 flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="flex flex-col">
+                <h1 className="font-semibold text-lg">Shop Dashboard</h1>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  Welcome back, Admin!
+                </p>
+              </div>
+            </div>
+
+            {/* Header Actions */}
+            <div className="flex items-center gap-3">
+              <button
+                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors relative"
+                aria-label="Notifications"
+              >
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                  />
+                </svg>
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  3
+                </span>
+              </button>
+
+              <div className="flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
+                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                  <span className="text-sm font-medium text-white">A</span>
+                </div>
+                <div className="hidden sm:block">
+                  <p className="text-sm font-medium">Admin User</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    Administrator
+                  </p>
+                </div>
+              </div>
+              {isMobile && (
+                <button
+                  onClick={() => setSidebarOpen(!sidebarOpen)}
+                  className="inline-flex items-center justify-center h-10 w-10 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  aria-label="Toggle sidebar"
+                >
+                  {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
+                </button>
+              )}
+            </div>
+          </div>
+        </header>
+
+        {/* Main Content */}
+        <main className="p-6">
+          <div className="max-w-7xl mx-auto">{children}</div>
+        </main>
+      </div>
+    </div>
+  );
 }
-
-
