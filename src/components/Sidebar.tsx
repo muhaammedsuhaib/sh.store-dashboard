@@ -203,13 +203,15 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
               </h1>
             </div>
 
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              aria-label="Toggle sidebar"
-            >
-              {isOpen && <X size={20} />}
-            </button>
+            {isOpen && (
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                aria-label="Toggle sidebar"
+              >
+                <X size={20} />
+              </button>
+            )}
           </div>
         </div>
 
