@@ -9,6 +9,7 @@ import {
   Users,
   LineChart,
   Settings as SettingsIcon,
+  Store,
 } from "lucide-react";
 
 type SidebarProps = {
@@ -44,6 +45,13 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
   const isExpanded = isOpen || isHovering;
 
   const navItems: NavItem[] = [
+    // add pos 
+    {
+      title: "POS",
+      icon: Store,
+      hasDropdown: false,
+      to: "/pos",
+    },
     {
       title: "Dashboard",
       icon: Home,
@@ -333,7 +341,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
         </nav>
 
         {/* User Profile (Optional) */}
-        {isExpanded && (
+        {/* {isExpanded && (
           <div className="flex-shrink-0 p-4 border-t border-gray-200 dark:border-gray-700">
             <div className="flex items-center">
               <div className="w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded-full flex items-center justify-center">
@@ -351,7 +359,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
               </div>
             </div>
           </div>
-        )}
+        )} */}
       </aside>
     </>
   );

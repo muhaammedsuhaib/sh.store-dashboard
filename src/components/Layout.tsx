@@ -1,13 +1,9 @@
 import { useState, useEffect } from "react";
-import type { ReactNode } from "react";
 import { Sidebar } from "./Sidebar";
 import { Menu, X } from "lucide-react";
+import { Outlet } from "react-router-dom"; // Add this import
 
-type LayoutProps = {
-  children: ReactNode;
-};
-
-export function Layout({ children }: LayoutProps) {
+export function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -122,9 +118,11 @@ export function Layout({ children }: LayoutProps) {
           </div>
         </header>
 
-        {/* Main Content */}
+        {/* Main Content - Use Outlet for nested routes */}
         <main className="p-6">
-          <div className="max-w-7xl mx-auto">{children}</div>
+          <div className="max-w-7xl mx-auto">
+            <Outlet /> {/* This renders the child routes */}
+          </div>
         </main>
       </div>
     </div>
