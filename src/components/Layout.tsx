@@ -3,7 +3,7 @@ import { Sidebar } from "./Sidebar";
 import { Menu, X } from "lucide-react";
 import { Outlet } from "react-router-dom"; // Add this import
 
-export function Layout() {
+export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 

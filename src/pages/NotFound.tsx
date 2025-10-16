@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Home, ArrowLeft, Search, AlertCircle } from 'lucide-react';
 
-export function NotFound() {
+export default function NotFound() {
   const quickLinks = [
     { path: '/', label: 'Dashboard', icon: Home },
     { path: '/products', label: 'Products', icon: Search },

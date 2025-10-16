@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   ChevronDown,
-  Home,
+  // Home,
   X,
   Package,
   ShoppingCart,
   Users,
   LineChart,
-  Settings as SettingsIcon,
+  // Settings as SettingsIcon,
   Store,
 } from "lucide-react";
 
@@ -45,7 +45,14 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
   const isExpanded = isOpen || isHovering;
 
   const navItems: NavItem[] = [
-    // add pos 
+    // add pos
+    {
+      title: "Dashboard",
+      icon: LineChart,
+      hasDropdown: false,
+      to: "/dashboard",
+      // badge: 5,
+    },
     {
       title: "POS",
       icon: Store,
@@ -53,12 +60,40 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
       to: "/pos",
     },
     {
-      title: "Dashboard",
-      icon: Home,
+      // title: "Orders",
+      // icon: ShoppingCart,
+      // hasDropdown: false,
+      // // dropdownItems: [
+      // //   { label: "All Orders", to: "/orders", badge: 24 },
+      // //   { label: "Pending", to: "/orders/pending", badge: 8 },
+      // //   { label: "Completed", to: "/orders/completed" },
+      // //   { label: "Cancelled", to: "/orders/cancelled" },
+      // // ],
+      title: "Orders",
+      icon: ShoppingCart,
       hasDropdown: false,
-      to: "/",
-      badge: 5,
+      to: "/orders",
+      // badge: 5,
     },
+    // {
+    //   title: "Customer Management",
+    //   icon: Users,
+    //   hasDropdown: false,
+    //   to: "/customers",
+    // },
+    {
+      title: "Customers",
+      icon: Users,
+      hasDropdown: false,
+      to: "/customers",
+      // dropdownItems: [
+      //   { label: "Customer List", to: "/customers", badge: 156 },
+      //   { label: "Debt", to: "/customers/debt" },
+      //   // { label: "Segments", to: "/customers/segments" },
+      //   // { label: "Reviews", to: "/customers/reviews" },
+      // ],
+    },
+
     {
       title: "Products",
       icon: Package,
@@ -66,48 +101,22 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
       dropdownItems: [
         { label: "All Products", to: "/products", badge: 12 },
         { label: "Add Product", to: "/products/new" },
-        { label: "Categories", to: "/products/categories", badge: 3 },
-        { label: "Inventory", to: "/products/inventory" },
+        // { label: "Categories", to: "/products/categories", badge: 3 },
+        // { label: "Inventory", to: "/products/inventory" },
       ],
     },
-    {
-      title: "Orders",
-      icon: ShoppingCart,
-      hasDropdown: true,
-      dropdownItems: [
-        { label: "All Orders", to: "/orders", badge: 24 },
-        { label: "Pending", to: "/orders/pending", badge: 8 },
-        { label: "Completed", to: "/orders/completed" },
-        { label: "Cancelled", to: "/orders/cancelled" },
-      ],
-    },
-    {
-      title: "Customers",
-      icon: Users,
-      hasDropdown: true,
-      dropdownItems: [
-        { label: "Customer List", to: "/customers", badge: 156 },
-        { label: "Segments", to: "/customers/segments" },
-        { label: "Reviews", to: "/customers/reviews" },
-      ],
-    },
-    {
-      title: "Analytics",
-      icon: LineChart,
-      hasDropdown: false,
-      to: "/analytics",
-    },
-    {
-      title: "Settings",
-      icon: SettingsIcon,
-      hasDropdown: true,
-      dropdownItems: [
-        { label: "General", to: "/settings" },
-        { label: "Security", to: "/settings/security" },
-        { label: "Notifications", to: "/settings/notifications" },
-        { label: "Billing", to: "/settings/billing" },
-      ],
-    },
+
+    // {
+    //   title: "Settings",
+    //   icon: SettingsIcon,
+    //   hasDropdown: true,
+    //   dropdownItems: [
+    //     { label: "General", to: "/settings" },
+    //     { label: "Security", to: "/settings/security" },
+    //     { label: "Notifications", to: "/settings/notifications" },
+    //     { label: "Billing", to: "/settings/billing" },
+    //   ],
+    // },
   ];
 
   // Auto-open dropdown that contains current route
@@ -198,16 +207,20 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
         {/* Header */}
         <div className="flex-shrink-0 p-4 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between">
-            <div
-              className={`flex items-center transition-all duration-300 ${
-                isExpanded ? "opacity-100" : "opacity-0"
-              }`}
-            >
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">D</span>
+            <div className={`flex items-center transition-all duration-300 `}>
+              <div className="w-8 h-8 bg-gradient-to-br from-slate-900 to-blue-900 rounded-lg flex items-center justify-center shadow-sm">
+                <img
+                  src="/brand-images/logo.jpg"
+                  alt="Sh.shop"
+                  className="w-6 h-6 rounded"
+                />
               </div>
-              <h1 className="ml-3 font-bold text-xl text-gray-900 dark:text-white whitespace-nowrap">
-                Dashboard
+              <h1
+                className={`ml-3 font-bold text-xl text-slate-900 dark:text-white whitespace-nowrap  ${
+                  isExpanded ? "opacity-100" : "opacity-0"
+                }`}
+              >
+                Sh.shop
               </h1>
             </div>
 
