@@ -440,7 +440,7 @@ export default function Customers() {
               </div>
 
               {/* Filters */}
-              <div className="flex gap-2">
+              <div className="flex gap-2 flex-wrap">
                 <select
                   value={statusFilter}
                   onChange={(e) =>
