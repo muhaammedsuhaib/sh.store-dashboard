@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import { Sidebar } from "./Sidebar";
 import { Menu, X } from "lucide-react";
-import { Outlet } from "react-router-dom"; // Add this import
+import { Outlet } from "react-router-dom";
+import { Loader } from "./common/Loader";
+import { useStaff } from "../api/staff/get_staff";
 
 export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const { data: staff = {} as any, isLoading: staffLoading } = useStaff();
 
   useEffect(() => {
     const checkMobile = () => {
@@ -45,7 +48,9 @@ export default function Layout() {
       document.head.removeChild(style);
     };
   }, []);
-
+  if (staffLoading) {
+    return <Loader text="Loading..." />;
+  }
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
       <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
@@ -63,9 +68,12 @@ export default function Layout() {
           <div className="h-full px-4 flex items-center justify-between">
             <div className="flex items-center gap-4">
               <div className="flex flex-col">
-                <h1 className="font-semibold text-lg">Shop Dashboard</h1>
+                <h1 className="font-semibold text-lg">
+                  {" "}
+                  {staff?.data?.shop?.name ?? ""}{" "}
+                </h1>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Welcome back, Admin!
+                  Welcome back, {staff?.data?.name ?? ""}!
                 </p>
               </div>
             </div>
@@ -95,16 +103,38 @@ export default function Layout() {
               </button>
 
               <div className="flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
-                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                  <span className="text-sm font-medium text-white">A</span>
-                </div>
-                <div className="hidden sm:block">
-                  <p className="text-sm font-medium">Admin User</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
-                    Administrator
+                {/* Profile image or first letter */}
+                {staff?.data?.profile ? (
+                  <img
+                    src={staff.data.profile}
+                    alt={staff.data.name || "Staff"}
+                    className="w-8 h-8 rounded-full object-cover"
+                  />
+                ) : (
+                  <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                    <span className="text-sm font-medium text-white">
+                      {staff?.data?.name?.charAt(0)?.toUpperCase() ?? "A"}
+                    </span>
+                  </div>
+                )}
+
+                {/* Staff details with ellipsis */}
+                <div className="hidden sm:block max-w-[150px]">
+                  <p
+                    className="text-sm font-medium truncate"
+                    title={staff?.data?.name ?? ""}
+                  >
+                    {staff?.data?.name ?? ""}
+                  </p>
+                  <p
+                    className="text-xs text-gray-500 dark:text-gray-400 uppercase truncate"
+                    title={staff?.data?.role ?? ""}
+                  >
+                    {staff?.data?.role ?? ""}
                   </p>
                 </div>
               </div>
+
               {isMobile && (
                 <button
                   onClick={() => setSidebarOpen(!sidebarOpen)}

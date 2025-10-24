@@ -49,6 +49,18 @@ const ProductNew = lazyWithErrorHandling(
   () => import("./pages/ProductNew"),
   "ProductNew"
 );
+const TermsAndConditions = lazyWithErrorHandling(
+  () => import("./pages/sh.shop/TermsAndConditions"),
+  "TermsAndConditions"
+);
+const PrivacyPolicy = lazyWithErrorHandling(
+  () => import("./pages/sh.shop/PrivacyPolicy"),
+  "PrivacyPolicy"
+);
+const Support = lazyWithErrorHandling(
+  () => import("./pages/sh.shop/Support"),
+  "Support"
+);
 const NotFound = lazyWithErrorHandling(
   () => import("./pages/NotFound"),
   "NotFound"
@@ -84,7 +96,12 @@ function App() {
               <Route path="/products" element={<Products />} />
               <Route path="/products/new" element={<ProductNew />} />
             </Route>
-
+            <Route
+              path="/terms-and-conditions"
+              element={<TermsAndConditions />}
+            />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/support" element={<Support />} />
             {/* 404 */}
             <Route path="*" element={<NotFound />} />
           </Routes>
