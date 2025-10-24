@@ -1,11 +1,11 @@
 // ----------------- Base URLs ----------------- //
 export const API_URL: string =
   import.meta.env.VITE_API_URL ||
-  "https://ranzomfragrances-backend-1.onrender.com/api";
+  "https://sh-store-backend.vercel.app/api";
 
 export const BASE_URL: string =
   import.meta.env.VITE_BASE_URL ||
-  "https://ranzomfragrances-backend-1.onrernder.com/";
+  "https://sh-store-backend.vercel.app/";
 
 // ----------------- Token Key ----------------- //
 export const TOKEN_KEY = "token";
