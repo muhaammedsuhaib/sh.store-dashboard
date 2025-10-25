@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import { Loader } from "./components/common/Loader";
 import { ErrorBoundary } from "./components/common/ErrorBoundary";
+import ProtectedRoute from "./components/common/ProtectedRoute";
 
 // Lazy imports with better error handling
 const lazyWithErrorHandling = (
@@ -88,13 +89,15 @@ function App() {
             <Route path="/reset-password" element={<ResetPassword />} />
 
             {/* Protected Layout Routes */}
-            <Route path="/" element={<Layout />}>
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/pos" element={<POS />} />
-              <Route path="/orders" element={<Orders />} />
-              <Route path="/customers" element={<Customers />} />
-              <Route path="/products" element={<Products />} />
-              <Route path="/products/new" element={<ProductNew />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path="/" element={<Layout />}>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/pos" element={<POS />} />
+                <Route path="/orders" element={<Orders />} />
+                <Route path="/customers" element={<Customers />} />
+                <Route path="/products" element={<Products />} />
+                <Route path="/products/new" element={<ProductNew />} />
+              </Route>
             </Route>
             <Route
               path="/terms-and-conditions"

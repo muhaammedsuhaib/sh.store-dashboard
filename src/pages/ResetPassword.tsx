@@ -1,25 +1,33 @@
 import { useState } from "react";
-import { Lock, Eye, EyeOff, CheckCircle, ArrowRight, ArrowLeft } from "lucide-react";
+import {
+  Lock,
+  Eye,
+  EyeOff,
+  CheckCircle,
+  ArrowRight,
+  ArrowLeft,
+} from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
+import MainHeader from "../components/common/MainHeader";
 
 export default function ResetPassword() {
   const [searchParams] = useSearchParams();
   const [formData, setFormData] = useState({
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-//   const token = searchParams.get("token");
+  //   const token = searchParams.get("token");
   const email = searchParams.get("email");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -37,29 +45,10 @@ export default function ResetPassword() {
   if (isSubmitted) {
     return (
       <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          {/* Logo Section */}
-          <div className="flex justify-center mb-6">
-            <div className="w-16 h-16 bg-gradient-to-br from-slate-900 to-blue-900 rounded-2xl flex items-center justify-center shadow-lg">
-              <img 
-                src="/brand-images/logo.jpg" 
-                alt="Sh.shop" 
-                className="w-10 h-10 rounded-lg"
-              />
-            </div>
-          </div>
-          
-          {/* Header Text */}
-          <div className="text-center">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-3">
-              Password reset successfully!
-            </h2>
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-sm mx-auto leading-relaxed">
-              Your password has been updated successfully
-            </p>
-          </div>
-        </div>
-
+        <MainHeader
+          title="Password reset successfully!"
+          subtitle="Your password has been updated successfully"
+        />
         <div className="mt-8 sm:mt-10 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white dark:bg-slate-900 py-6 sm:py-8 px-4 sm:px-8 shadow-xl sm:rounded-2xl border border-slate-200 dark:border-slate-800">
             <div className="text-center">
@@ -67,15 +56,16 @@ export default function ResetPassword() {
               <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-emerald-100 dark:bg-emerald-900/30 mb-4">
                 <CheckCircle className="h-8 w-8 text-emerald-600 dark:text-emerald-400" />
               </div>
-              
+
               {/* Success Message */}
               <h3 className="text-lg sm:text-xl font-semibold text-slate-900 dark:text-white mb-2">
                 All set!
               </h3>
               <p className="text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-                Your password has been updated successfully. You can now sign in with your new password.
+                Your password has been updated successfully. You can now sign in
+                with your new password.
               </p>
-              
+
               {/* Sign In Button */}
               <Link
                 to="/sign-in"
@@ -87,7 +77,8 @@ export default function ResetPassword() {
 
               {/* Additional Info */}
               <p className="mt-6 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                If you face any issues signing in, try clearing your browser cache or contact support.
+                If you face any issues signing in, try clearing your browser
+                cache or contact support.
               </p>
             </div>
           </div>
@@ -97,7 +88,10 @@ export default function ResetPassword() {
         <div className="mt-8 text-center sm:hidden">
           <p className="text-xs text-slate-500 dark:text-slate-500">
             Need help?{" "}
-            <a href="/support" className="text-blue-600 hover:text-blue-500 dark:text-blue-400">
+            <a
+              href="/support"
+              className="text-blue-600 hover:text-blue-500 dark:text-blue-400"
+            >
               Contact support
             </a>
           </p>
@@ -108,29 +102,14 @@ export default function ResetPassword() {
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        {/* Logo Section */}
-        <div className="flex justify-center mb-6">
-          <div className="w-16 h-16 bg-gradient-to-br from-slate-900 to-blue-900 rounded-2xl flex items-center justify-center shadow-lg">
-            <img 
-              src="/brand-images/logo.jpg" 
-              alt="Sh.shop" 
-              className="w-10 h-10 rounded-lg"
-            />
-          </div>
-        </div>
-        
-        {/* Header Text */}
-        <div className="text-center">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-3">
-            Create new password
-          </h2>
-          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-sm mx-auto leading-relaxed">
-            {email ? `Reset password for ${email}` : "Enter your new password below"}
-          </p>
-        </div>
-      </div>
-
+      <MainHeader
+        title="Create new password"
+        subtitle={
+          email
+            ? `Reset password for ${email}`
+            : "Enter your new password below"
+        }
+      />
       <div className="mt-8 sm:mt-10 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white dark:bg-slate-900 py-6 sm:py-8 px-4 sm:px-8 shadow-xl sm:rounded-2xl border border-slate-200 dark:border-slate-800">
           <form className="space-y-4 sm:space-y-5" onSubmit={handleSubmit}>
@@ -237,7 +216,9 @@ export default function ResetPassword() {
                 {isLoading ? (
                   <div className="flex items-center">
                     <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-3"></div>
-                    <span className="text-sm sm:text-base">Resetting password...</span>
+                    <span className="text-sm sm:text-base">
+                      Resetting password...
+                    </span>
                   </div>
                 ) : (
                   <div className="flex items-center">

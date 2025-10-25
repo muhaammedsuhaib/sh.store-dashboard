@@ -7,6 +7,7 @@ import { useUserLogin } from "../api/auth";
 import { setLoginToken } from "../utils/helper";
 import toast from "react-hot-toast";
 import { Button } from "../components/common/Button";
+import MainHeader from "../components/common/MainHeader";
 
 // Define form data type
 interface SignInFormData {
@@ -120,29 +121,10 @@ export default function SignIn() {
   };
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        {/* Logo Section */}
-        <div className="flex justify-center mb-6">
-          <div className="w-16 h-16 bg-gradient-to-br from-slate-900 to-blue-900 rounded-2xl flex items-center justify-center shadow-lg">
-            <img
-              src="/brand-images/logo.jpg"
-              alt="Sh.shop"
-              className="w-10 h-10 rounded-lg"
-            />
-          </div>
-        </div>
-
-        {/* Header Text */}
-        <div className="text-center">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-3">
-            Welcome back
-          </h2>
-          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-sm mx-auto leading-relaxed">
-            Enter your phone number and password to access your account
-          </p>
-        </div>
-      </div>
-
+      <MainHeader
+        title="Welcome back"
+        subtitle="Enter your phone number and password to access your account"
+      />
       {/* Form Container */}
       <div className="mt-8 sm:mt-10 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white dark:bg-slate-900 py-6 sm:py-8 px-4 sm:px-8 shadow-xl sm:rounded-2xl border border-slate-200 dark:border-slate-800">
