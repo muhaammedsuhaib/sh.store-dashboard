@@ -10,6 +10,7 @@ import {
   LineChart,
   // Settings as SettingsIcon,
   Store,
+  Boxes,
 } from "lucide-react";
 
 type SidebarProps = {
@@ -105,7 +106,15 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
         // { label: "Inventory", to: "/products/inventory" },
       ],
     },
-
+    {
+      title: "Categories",
+      icon: Boxes,
+      hasDropdown: true,
+      dropdownItems: [
+        { label: "All categories", to: "/categories", badge: 12 },
+        { label: "Add Product", to: "/category/new" },
+      ],
+    },
     // {
     //   title: "Settings",
     //   icon: SettingsIcon,

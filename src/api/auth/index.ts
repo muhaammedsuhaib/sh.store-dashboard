@@ -49,7 +49,11 @@ const userSignup = async (data: SignupPayload): Promise<ApiResponse> => {
 };
 
 // React Query Hook for Signup
-const useUserSignup = (): UseMutationResult<ApiResponse, any, SignupPayload> => {
+const useUserSignup = (): UseMutationResult<
+  ApiResponse,
+  any,
+  SignupPayload
+> => {
   return useMutation({
     mutationFn: userSignup,
   });
