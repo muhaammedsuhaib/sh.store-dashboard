@@ -51,11 +51,11 @@ const ProductNew = lazyWithErrorHandling(
   "ProductNew"
 );
 const Categories = lazyWithErrorHandling(
-  () => import("./pages/Categories"),
+  () => import("./pages/category/Categories"),
   "Categories"
 );
 const CategoryNew = lazyWithErrorHandling(
-  () => import("./pages/CategoryNew"),
+  () => import("./pages/category/CategoryNew"),
   "CategoryNew"
 );
 const TermsAndConditions = lazyWithErrorHandling(

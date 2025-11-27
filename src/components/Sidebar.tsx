@@ -112,7 +112,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
       hasDropdown: true,
       dropdownItems: [
         { label: "All categories", to: "/categories", badge: 12 },
-        { label: "Add Product", to: "/category/new" },
+        { label: "Add category", to: "/category/new" },
       ],
     },
     // {

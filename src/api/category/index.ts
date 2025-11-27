@@ -35,7 +35,7 @@ const useCreateCategory = () => {
  */
 const updateCategory = async (formData: any): Promise<any> => {
   try {
-    const id = formData.get("id");
+    const { id } = formData;
     const response: any = await APIClientPrivate.put(
       `/category/${id}`,
       formData,
