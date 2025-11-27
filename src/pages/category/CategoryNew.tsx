@@ -305,6 +305,7 @@ export default function CategoryNew() {
     data: parentCategories,
     isLoading: isLoadingCategories,
     error: categoriesError,
+    refetch: refetchCategories,
   } = useCategories();
 
   const { mutate: categoryMutate, isPending: categoryLoading } =
@@ -442,6 +443,7 @@ export default function CategoryNew() {
         categoryMutate(formData, {
           onSuccess: () => {
             toast.success("Category created successfully! 🎉");
+            refetchCategories();
             setTimeout(() => navigate("/categories"), 1500);
           },
           onError: (err: any) => {
