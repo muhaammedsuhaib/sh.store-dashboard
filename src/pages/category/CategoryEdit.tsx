@@ -627,7 +627,7 @@ export default function CategoryEdit() {
         formData.append("name", data.name.trim());
         formData.append("description", data.description.trim());
         formData.append("is_active", data.is_active.toString());
-
+        
         if (data.parent) {
           formData.append("parent", data.parent);
         }else{
