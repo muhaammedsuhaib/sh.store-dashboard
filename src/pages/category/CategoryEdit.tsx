@@ -630,6 +630,8 @@ export default function CategoryEdit() {
 
         if (data.parent) {
           formData.append("parent", data.parent);
+        }else{
+          formData.append("parent", "");
         }
 
         // Add existing images (ones that weren't removed)
