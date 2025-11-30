@@ -58,6 +58,10 @@ const CategoryNew = lazyWithErrorHandling(
   () => import("./pages/category/CategoryNew"),
   "CategoryNew"
 );
+const CategoryEdit = lazyWithErrorHandling(
+  () => import("./pages/category/CategoryEdit"),
+  "CategoryEdit"
+);
 const TermsAndConditions = lazyWithErrorHandling(
   () => import("./pages/sh.shop/TermsAndConditions"),
   "TermsAndConditions"
@@ -107,6 +111,8 @@ function App() {
                 <Route path="/products/new" element={<ProductNew />} />
                 <Route path="/categories" element={<Categories />} />
                 <Route path="/category/new" element={<CategoryNew />} />
+                <Route path="/category/edit/:id" element={<CategoryEdit />} />
+                
               </Route>
             </Route>
             <Route

@@ -186,33 +186,32 @@ export default function Categories() {
   // Active or inactive category
   const handleSoftDelete = () => {
     if (!selectedCategory) return;
-    updateCategory(
-      {
-        id: selectedCategory._id,
-        is_active: !selectedCategory?.is_active,
+    const formData = new FormData();
+
+    formData.append("id", selectedCategory?._id);
+    formData.append("is_active", String(!selectedCategory?.is_active));
+
+    updateCategory(formData, {
+      onSuccess: () => {
+        setIsDeleteModalOpen(false);
+        setSelectedCategory(null);
+        toast.success(
+          `Category ${
+            !selectedCategory.is_active ? "activated" : "deactivated"
+          } successfully! 🎉`
+        );
+        refetchCategories();
       },
-      {
-        onSuccess: () => {
-          setIsDeleteModalOpen(false);
-          setSelectedCategory(null);
-          toast.success(
-            `Category ${
-              !selectedCategory.is_active ? "activated" : "deactivated"
-            } successfully! 🎉`
-          );
-          refetchCategories();
-        },
-        onError: (err: any) => {
-          const errorMessage =
-            err?.response?.data?.message ||
-            err?.message ||
-            `Failed to ${
-              selectedCategory?.is_active ? "deactivate" : "activate"
-            } category. Please try again.`;
-          toast.error(errorMessage);
-        },
-      }
-    );
+      onError: (err: any) => {
+        const errorMessage =
+          err?.response?.data?.message ||
+          err?.message ||
+          `Failed to ${
+            selectedCategory?.is_active ? "deactivate" : "activate"
+          } category. Please try again.`;
+        toast.error(errorMessage);
+      },
+    });
   };
 
   // Restore category
@@ -791,7 +790,11 @@ export default function Categories() {
               <p className="text-slate-600 dark:text-slate-400">
                 Are you sure you want to{" "}
                 {selectedCategory?.is_active ? "deactivate" : "activate"} the
-                category "{selectedCategory.name}"?{" "}
+                category "
+                <span className="inline-block max-w-[200px] overflow-hidden text-ellipsis whitespace-nowrap">
+                  {selectedCategory?.name}
+                </span>
+                "?{" "}
                 {selectedCategory?.is_active
                   ? "This will make it unavailable for new products."
                   : "This will make it available for new products."}
