@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
-import tailwindcss from '@tailwindcss/vite';
+import tailwindcss from "@tailwindcss/vite";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
@@ -11,30 +11,31 @@ export default defineConfig({
       registerType: "autoUpdate",
       includeAssets: ["favicon.svg", "favicon.ico", "robots.txt"],
       devOptions: {
-        enabled: true, 
+        enabled: true,
       },
       manifest: {
-        name: "My App",
-        short_name: "App",
-        description: "My React PWA",
-        theme_color: "#ffffff",
-        background_color: "#ffffff",
+        name: "Sh.Shop - Shop Management Software",
+        short_name: "Sh.Shop",
+        description:
+          "SH.Shop is a modern and efficient shop management software to handle inventory, sales, and staff seamlessly.",
+        theme_color: "#FFD700",
+        background_color: "#FFFFFF",
         display: "standalone",
         orientation: "portrait",
         start_url: "/",
         icons: [
           {
-            src: "/vite.svg",
+            src: "/logo.svg",
             sizes: "192x192",
             type: "image/png",
           },
           {
-            src: "/vite.svg",
+            src: "/logo.svg",
             sizes: "512x512",
             type: "image/png",
           },
           {
-            src: "/vite.svg",
+            src: "/logo.svg",
             sizes: "512x512",
             type: "image/png",
             purpose: "any maskable",
