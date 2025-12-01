@@ -8,6 +8,7 @@ import {
   Shield,
   Zap,
 } from 'lucide-react';
+import PwaInstallButton from '../components/common/InstallButton';
 
 export default function Home() {
   const features = [
@@ -82,9 +83,7 @@ export default function Home() {
                 Get Started
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
-              <button className="inline-flex items-center px-8 py-4 border-2 border-white/30 text-white font-semibold rounded-lg hover:bg-white/10 transition-all duration-200 backdrop-blur-sm">
-                Learn More
-              </button>
+<PwaInstallButton />
             </div>
           </div>
         </div>
