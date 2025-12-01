@@ -9,14 +9,14 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: ["favicon.png", "favicon.ico", "robots.txt", "apple-touch-icon.png"],
+      includeAssets: ["favicon.svg", "favicon.ico", "robots.txt"],
       devOptions: {
         enabled: true, 
       },
       manifest: {
-        name: "Sh.shop",
-        short_name: "Sh.shop",
-        description: "Sh.shop Dashboard",
+        name: "My App",
+        short_name: "App",
+        description: "My React PWA",
         theme_color: "#ffffff",
         background_color: "#ffffff",
         display: "standalone",
@@ -24,26 +24,20 @@ export default defineConfig({
         start_url: "/",
         icons: [
           {
-            src: "/favicon-192x192.png",
+            src: "/vite.svg",
             sizes: "192x192",
             type: "image/png",
           },
           {
-            src: "/android-chrome-192x192.png",
-            sizes: "192x192",
-            type: "image/png",
-            purpose: "any",
-          },
-          {
-            src: "/android-chrome-512x512.png",
+            src: "/vite.svg",
             sizes: "512x512",
             type: "image/png",
           },
           {
-            src: "/android-chrome-512x512.png",
+            src: "/vite.svg",
             sizes: "512x512",
             type: "image/png",
-            purpose: "maskable",
+            purpose: "any maskable",
           },
         ],
       },
