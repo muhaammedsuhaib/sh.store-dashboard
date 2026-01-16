@@ -111,7 +111,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
       icon: Boxes,
       hasDropdown: true,
       dropdownItems: [
-        { label: "All categories", to: "/categories", badge: 12 },
+        { label: "All categories", to: "/categories" },
         { label: "Add category", to: "/category/new" },
         { label: "", to: "/category/edit" },
       ],
@@ -186,7 +186,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
   const renderBadge = (count?: number) => {
     if (!count) return null;
     return (
-      <span className="bg-red-500 text-white text-xs rounded-full min-w-[20px] h-5 flex items-center justify-center px-1.5">
+      <span className="bg-red-500 text-white text-xs rounded-full min-w-5 h-5 flex items-center justify-center px-1.5">
         {count > 99 ? "99+" : count}
       </span>
     );
@@ -215,13 +215,13 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
         onMouseLeave={() => setIsHovering(false)}
       >
         {/* Header */}
-        <div className="flex-shrink-0 p-4 border-b border-gray-200 dark:border-gray-700">
+        <div className="shrink-0 p-4 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between">
             <div className={`flex items-center transition-all duration-300 `}>
-              <div className="w-8 h-8 bg-gradient-to-br from-slate-900 to-blue-900 rounded-lg flex items-center justify-center shadow-sm">
+              <div className="w-8 h-8 bg-linear-to-br from-slate-900 to-blue-900 rounded-lg flex items-center justify-center shadow-sm">
                 <img
                   src="/brand-images/logo.jpg"
-                  alt="Sh.shop"
+                  alt="SH.SALE"
                   className="w-6 h-6 rounded"
                 />
               </div>
@@ -230,7 +230,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                   isExpanded ? "opacity-100" : "opacity-0"
                 }`}
               >
-                Sh.shop
+                SH.SALE
               </h1>
             </div>
 
@@ -247,7 +247,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 overflow-y-auto py-4">
+        <nav className="flex-1 overflow-hidden py-4">
           {navItems.map((item) => {
             const isActive = item.hasDropdown
               ? item.dropdownItems.some(
@@ -290,7 +290,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                     <div className="flex items-center min-w-0">
                       <Icon
                         size={20}
-                        className={`flex-shrink-0 ${
+                        className={`shrink-0 ${
                           isActive
                             ? "text-blue-600 dark:text-blue-400"
                             : "text-gray-600 dark:text-gray-400"

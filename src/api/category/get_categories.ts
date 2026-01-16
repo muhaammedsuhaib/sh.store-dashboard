@@ -1,12 +1,22 @@
 import { useQuery, QueryClient } from "@tanstack/react-query";
 import APIClientPrivate from "../../utils/apiClient";
+
+interface CategoriesParams {
+  search?: string;
+  status?: string;
+  parent?: string;
+  sortBy?: string;
+  sortOrder?: "asc" | "desc";
+  page?: number;
+  pageSize?: number;
+}
+
 /**
- * 🔹 Fetch categories from API
- * @returns {Promise<any[]>} - List of categories
+ * 🔹 Fetch categories from API with optional filters
  */
-const fetchCategories = async (): Promise<any> => {
+const fetchCategories = async (params?: CategoriesParams): Promise<any> => {
   try {
-    const response = await APIClientPrivate.get("/category");
+    const response = await APIClientPrivate.get("/category", { params });
     return response.data;
   } catch (error: any) {
     console.error("Error fetching categories:", error);
@@ -20,19 +30,18 @@ const fetchCategories = async (): Promise<any> => {
 /**
  * 🔹 React Query hook for fetching and caching categories
  */
-export const useCategories = () => {
-  return useQuery<any>({
-    queryKey: ["categories"],
-    queryFn: fetchCategories,
-    staleTime: 1000 * 60 * 5, // 5 minutes
-    gcTime: 1000 * 60 * 10, // 10 minutes
+export const useCategories = (params?: CategoriesParams) => {
+  return useQuery({
+    queryKey: ["categories", params],
+    queryFn: () => fetchCategories(params),
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 10,
     refetchOnWindowFocus: false,
   });
 };
 
 /**
- * 🔹 Utility to manually refetch categories from outside React (e.g. after CRUD ops)
- * @param {QueryClient} queryClient - React Query Client instance
+ * 🔹 Utility to manually refetch categories from outside React
  */
 export const refetchCategories = (queryClient: QueryClient) => {
   queryClient.invalidateQueries({ queryKey: ["categories"] });

@@ -9,17 +9,16 @@ const MainHeader = ({
     <div className="sm:mx-auto sm:w-full sm:max-w-md">
       {/* Logo Section */}
       <div className="flex justify-center mb-6">
-        <div className="w-16 h-16 bg-gradient-to-br from-slate-900 to-blue-900 rounded-2xl flex items-center justify-center shadow-lg">
+        <div className="w-16 h-16 bg-linear-to-br from-slate-900 to-blue-900 rounded-2xl flex items-center justify-center shadow-lg">
           <Link
             to="/"
             className="w-12 h-12 rounded-lg flex items-center justify-center"
           >
-            
-          <img
-            src={logo}
-            alt="Sh.shop"
-            className="w-10 h-10 rounded-lg object-cover"
-          />
+            <img
+              src={logo}
+              alt="SH.SALE"
+              className="w-10 h-10 rounded-lg object-cover"
+            />
           </Link>
         </div>
       </div>

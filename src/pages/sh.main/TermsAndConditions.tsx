@@ -11,7 +11,7 @@ export default function TermsAndConditions() {
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
-            <div className="w-16 h-16 bg-gradient-to-br from-slate-900 to-blue-900 rounded-2xl flex items-center justify-center shadow-lg">
+            <div className="w-16 h-16 bg-linear-to-br from-slate-900 to-blue-900 rounded-2xl flex items-center justify-center shadow-lg">
               <FileText className="w-8 h-8 text-white" />
             </div>
           </div>
@@ -46,10 +46,15 @@ export default function TermsAndConditions() {
                   1. Introduction
                 </h2>
                 <p className="text-slate-700 dark:text-slate-300 mb-4">
-                  Welcome to SH.Shop ("we," "our," or "us"). These Terms and Conditions govern your use of the SH.Shop Smart Shop Management System, including all features, content, and services provided.
+                  Welcome to SH.SALE ("we," "our," or "us"). These Terms and
+                  Conditions govern your use of the SH.SALE Smart Shop
+                  Management System, including all features, content, and
+                  services provided.
                 </p>
                 <p className="text-slate-700 dark:text-slate-300">
-                  By accessing or using SH.Shop, you agree to be bound by these Terms. If you disagree with any part, you may not access our services.
+                  By accessing or using SH.SALE, you agree to be bound by these
+                  Terms. If you disagree with any part, you may not access our
+                  services.
                 </p>
               </section>
 
@@ -60,20 +65,29 @@ export default function TermsAndConditions() {
                 </h2>
                 <ul className="space-y-3 text-slate-700 dark:text-slate-300">
                   <li className="flex items-start">
-                    <CheckCircle className="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                    <span>You must be at least 18 years old to create an account</span>
+                    <CheckCircle className="w-5 h-5 text-green-500 mr-2 mt-0.5 shrink-0" />
+                    <span>
+                      You must be at least 18 years old to create an account
+                    </span>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle className="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                    <span>Provide accurate, complete, and current registration information</span>
+                    <CheckCircle className="w-5 h-5 text-green-500 mr-2 mt-0.5 shrink-0" />
+                    <span>
+                      Provide accurate, complete, and current registration
+                      information
+                    </span>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle className="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                    <span>Maintain the security of your account credentials</span>
+                    <CheckCircle className="w-5 h-5 text-green-500 mr-2 mt-0.5 shrink-0" />
+                    <span>
+                      Maintain the security of your account credentials
+                    </span>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle className="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                    <span>Notify us immediately of any unauthorized access</span>
+                    <CheckCircle className="w-5 h-5 text-green-500 mr-2 mt-0.5 shrink-0" />
+                    <span>
+                      Notify us immediately of any unauthorized access
+                    </span>
                   </li>
                 </ul>
               </section>
@@ -84,7 +98,8 @@ export default function TermsAndConditions() {
                   3. Services Description
                 </h2>
                 <p className="text-slate-700 dark:text-slate-300 mb-4">
-                  SH.Shop provides a comprehensive shop management system including:
+                  SH.SALE provides a comprehensive shop management system
+                  including:
                 </p>
                 <div className="grid sm:grid-cols-2 gap-4 mb-4">
                   {[
@@ -95,11 +110,13 @@ export default function TermsAndConditions() {
                     "Order Management",
                     "Analytics Dashboard",
                     "Stock Alerts",
-                    "Multi-branch Support"
+                    "Multi-branch Support",
                   ].map((feature, index) => (
                     <div key={index} className="flex items-center">
-                      <CheckCircle className="w-4 h-4 text-blue-600 mr-2 flex-shrink-0" />
-                      <span className="text-slate-700 dark:text-slate-300 text-sm">{feature}</span>
+                      <CheckCircle className="w-4 h-4 text-blue-600 mr-2 shrink-0" />
+                      <span className="text-slate-700 dark:text-slate-300 text-sm">
+                        {feature}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -113,7 +130,9 @@ export default function TermsAndConditions() {
                 <ul className="space-y-3 text-slate-700 dark:text-slate-300">
                   <li>Subscription fees are billed in advance</li>
                   <li>All fees are exclusive of applicable taxes</li>
-                  <li>Payment processing through secure third-party providers</li>
+                  <li>
+                    Payment processing through secure third-party providers
+                  </li>
                   <li>No refunds for partial subscription periods</li>
                 </ul>
               </section>
@@ -124,7 +143,9 @@ export default function TermsAndConditions() {
                   5. Data Privacy
                 </h2>
                 <p className="text-slate-700 dark:text-slate-300 mb-4">
-                  We collect and process personal data in accordance with our Privacy Policy. By using SH.Shop, you consent to such processing.
+                  We collect and process personal data in accordance with our
+                  Privacy Policy. By using SH.SALE, you consent to such
+                  processing.
                 </p>
               </section>
 
@@ -134,7 +155,9 @@ export default function TermsAndConditions() {
                   6. Intellectual Property
                 </h2>
                 <p className="text-slate-700 dark:text-slate-300">
-                  All content, features, and functionality of SH.Shop are owned by us and are protected by international copyright, trademark, and other intellectual property laws.
+                  All content, features, and functionality of SH.SALE are owned
+                  by us and are protected by international copyright, trademark,
+                  and other intellectual property laws.
                 </p>
               </section>
 
@@ -144,7 +167,9 @@ export default function TermsAndConditions() {
                   7. Termination
                 </h2>
                 <p className="text-slate-700 dark:text-slate-300">
-                  We may terminate or suspend your account immediately for violations of these Terms. Upon termination, your right to use SH.Shop will cease immediately.
+                  We may terminate or suspend your account immediately for
+                  violations of these Terms. Upon termination, your right to use
+                  SH.SALE will cease immediately.
                 </p>
               </section>
 
@@ -154,7 +179,9 @@ export default function TermsAndConditions() {
                   8. Limitation of Liability
                 </h2>
                 <p className="text-slate-700 dark:text-slate-300">
-                  SH.Shop shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use or inability to use the service.
+                  SH.SALE shall not be liable for any indirect, incidental,
+                  special, consequential, or punitive damages resulting from
+                  your use or inability to use the service.
                 </p>
               </section>
 
@@ -164,7 +191,9 @@ export default function TermsAndConditions() {
                   9. Changes to Terms
                 </h2>
                 <p className="text-slate-700 dark:text-slate-300">
-                  We reserve the right to modify these terms at any time. We will notify users of significant changes. Continued use after changes constitutes acceptance.
+                  We reserve the right to modify these terms at any time. We
+                  will notify users of significant changes. Continued use after
+                  changes constitutes acceptance.
                 </p>
               </section>
 
@@ -175,8 +204,11 @@ export default function TermsAndConditions() {
                 </h2>
                 <p className="text-slate-700 dark:text-slate-300">
                   For questions about these Terms, contact us at:{" "}
-                  <a href="mailto:legal@sh.shop" className="text-blue-600 hover:text-blue-500 dark:text-blue-400">
-                    legal@sh.shop
+                  <a
+                    href="mailto:helpeatsh@gmail.com"
+                    className="text-blue-600 hover:text-blue-500 dark:text-blue-400"
+                  >
+                    helpeatsh@gmail.com
                   </a>
                 </p>
               </section>
@@ -191,20 +223,26 @@ export default function TermsAndConditions() {
                 type="checkbox"
                 checked={accepted}
                 onChange={(e) => setAccepted(e.target.checked)}
-                className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-800 mt-1 flex-shrink-0"
+                className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-800 mt-1 shrink-0"
               />
-              <label htmlFor="accept-terms" className="block text-sm text-slate-700 dark:text-slate-300 leading-5">
-                I have read, understood, and agree to be bound by these Terms and Conditions. 
-                I acknowledge that I am responsible for reviewing these Terms periodically for updates.
+              <label
+                htmlFor="accept-terms"
+                className="block text-sm text-slate-700 dark:text-slate-300 leading-5"
+              >
+                I have read, understood, and agree to be bound by these Terms
+                and Conditions. I acknowledge that I am responsible for
+                reviewing these Terms periodically for updates.
               </label>
             </div>
-            
+
             <div className="mt-6 flex flex-col sm:flex-row gap-4">
               <Button
                 fullWidth
                 disabled={!accepted}
                 className="py-3"
-                onClick={() => window.location.href = '/sign-up?accepted=true'}
+                onClick={() =>
+                  (window.location.href = "/sign-up?accepted=true")
+                }
               >
                 Accept & Continue
               </Button>
@@ -224,7 +262,10 @@ export default function TermsAndConditions() {
         <div className="mt-6 text-center">
           <p className="text-sm text-slate-500 dark:text-slate-500">
             Need help understanding these terms?{" "}
-            <a href="/support" className="text-blue-600 hover:text-blue-500 dark:text-blue-400">
+            <a
+              href="/support"
+              className="text-blue-600 hover:text-blue-500 dark:text-blue-400"
+            >
               Contact our support team
             </a>
           </p>

@@ -197,35 +197,25 @@ export function ButtonLoader({ size = "sm" }: { size?: "sm" | "md" }) {
   );
 }
 
-export function TableLoader({ rows = 5 }: { rows?: number }) {
+export function TableLoader({
+  rows = 5,
+  columns = 5,
+}: {
+  rows?: number;
+  columns?: number;
+}) {
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
-      <div className="bg-slate-50 dark:bg-slate-800 px-4 py-3 border-b border-slate-200 dark:border-slate-700">
-        <div className="flex gap-4">
-          {[...Array(5)].map((_, i) => (
-            <div
-              key={i}
-              className="h-4 bg-slate-200 dark:bg-slate-700 rounded flex-1"
-            />
+    <>
+      {Array.from({ length: rows }).map((_, rowIndex) => (
+        <tr key={rowIndex} className="animate-pulse">
+          {Array.from({ length: columns }).map((_, colIndex) => (
+            <td key={colIndex} className="px-4 py-4">
+              <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded" />
+            </td>
           ))}
-        </div>
-      </div>
-
-      <div className="divide-y divide-slate-200 dark:divide-slate-700">
-        {[...Array(rows)].map((_, rowIndex) => (
-          <div key={rowIndex} className="px-4 py-3">
-            <div className="flex gap-4 items-center">
-              {[...Array(5)].map((_, cellIndex) => (
-                <div
-                  key={cellIndex}
-                  className="h-3 bg-slate-100 dark:bg-slate-800 rounded flex-1"
-                />
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+        </tr>
+      ))}
+    </>
   );
 }
 

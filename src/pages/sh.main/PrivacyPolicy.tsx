@@ -11,7 +11,7 @@ export default function PrivacyPolicy() {
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
-            <div className="w-16 h-16 bg-gradient-to-br from-slate-900 to-blue-900 rounded-2xl flex items-center justify-center shadow-lg">
+            <div className="w-16 h-16 bg-linear-to-br from-slate-900 to-blue-900 rounded-2xl flex items-center justify-center shadow-lg">
               <Lock className="w-8 h-8 text-white" />
             </div>
           </div>
@@ -46,7 +46,7 @@ export default function PrivacyPolicy() {
                   1. Introduction
                 </h2>
                 <p className="text-slate-700 dark:text-slate-300">
-                  At SH.Shop, we are committed to protecting your privacy and
+                  At SH.SALE, we are committed to protecting your privacy and
                   personal information. This Privacy Policy explains how we
                   collect, use, disclose, and safeguard your information when
                   you use our shop management system.
@@ -90,7 +90,7 @@ export default function PrivacyPolicy() {
                   {[
                     {
                       title: "Service Provision",
-                      description: "To provide and maintain SH.Shop services",
+                      description: "To provide and maintain SH.SALE services",
                     },
                     {
                       title: "Customer Support",
@@ -144,21 +144,21 @@ export default function PrivacyPolicy() {
                 </p>
                 <ul className="space-y-3 text-slate-700 dark:text-slate-300">
                   <li className="flex items-start">
-                    <Shield className="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                    <Shield className="w-5 h-5 text-green-500 mr-2 mt-0.5 shrink-0" />
                     <span>
                       <strong>Service Providers:</strong> Trusted third parties
                       who assist in operating our platform
                     </span>
                   </li>
                   <li className="flex items-start">
-                    <Shield className="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                    <Shield className="w-5 h-5 text-green-500 mr-2 mt-0.5 shrink-0" />
                     <span>
                       <strong>Legal Requirements:</strong> When required by law
                       or to protect our rights
                     </span>
                   </li>
                   <li className="flex items-start">
-                    <Shield className="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                    <Shield className="w-5 h-5 text-green-500 mr-2 mt-0.5 shrink-0" />
                     <span>
                       <strong>Business Transfers:</strong> In connection with
                       mergers or acquisitions
@@ -187,7 +187,7 @@ export default function PrivacyPolicy() {
                     "Employee privacy training",
                   ].map((measure, index) => (
                     <div key={index} className="flex items-center">
-                      <Lock className="w-4 h-4 text-blue-600 mr-2 flex-shrink-0" />
+                      <Lock className="w-4 h-4 text-blue-600 mr-2 shrink-0" />
                       <span className="text-sm">{measure}</span>
                     </div>
                   ))}
@@ -203,7 +203,8 @@ export default function PrivacyPolicy() {
                   <p className="text-blue-800 dark:text-blue-300 text-sm">
                     You have the right to access, correct, delete, or restrict
                     processing of your personal data. Contact us at{" "}
-                    <strong>privacy@sh.shop</strong> to exercise these rights.
+                    <strong>helpeatsh@gmail.com</strong> to exercise these
+                    rights.
                   </p>
                 </div>
               </section>
@@ -267,10 +268,10 @@ export default function PrivacyPolicy() {
                   For privacy-related questions or concerns, contact our Data
                   Protection Officer at:{" "}
                   <a
-                    href="mailto:privacy@sh.shop"
+                    href="mailto:helpeatsh@gmail.com"
                     className="text-blue-600 hover:text-blue-500 dark:text-blue-400"
                   >
-                    privacy@sh.shop
+                    helpeatsh@gmail.com
                   </a>
                 </p>
               </section>
@@ -285,7 +286,7 @@ export default function PrivacyPolicy() {
                 type="checkbox"
                 checked={accepted}
                 onChange={(e) => setAccepted(e.target.checked)}
-                className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-800 mt-1 flex-shrink-0"
+                className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-800 mt-1 shrink-0"
               />
               <label
                 htmlFor="accept-privacy"

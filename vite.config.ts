@@ -14,10 +14,10 @@ export default defineConfig({
         enabled: true,
       },
       manifest: {
-        name: "Sh.Shop - Shop Management Software",
-        short_name: "Sh.Shop",
+        name: "SH.SALE - Shop Management Software",
+        short_name: "SH.SALE",
         description:
-          "SH.Shop is a modern and efficient shop management software to handle inventory, sales, and staff seamlessly.",
+          "SH.SALE is a modern and efficient shop management software to handle inventory, sales, and staff seamlessly.",
         theme_color: "#1e3a8a",
         background_color: "#0f172a",
         display: "standalone",

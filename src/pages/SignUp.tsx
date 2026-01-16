@@ -141,7 +141,7 @@ export default function SignUp() {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
       <MainHeader
-        title="Join Sh.shop"
+        title="Join SH.SALE"
         subtitle="Create your account and start growing your business today"
       />
 
@@ -383,7 +383,7 @@ export default function SignUp() {
                 {...register("terms", {
                   required: "You must accept the terms and conditions",
                 })}
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-800 mt-1 flex-shrink-0"
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-800 mt-1 shrink-0"
               />
               <label
                 htmlFor="terms"

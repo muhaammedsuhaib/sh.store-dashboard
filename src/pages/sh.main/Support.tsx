@@ -25,7 +25,7 @@ export default function Support() {
       description:
         "Instant help from our support team. Average response time: 2 minutes",
       action: "Start Chat",
-      href: "https://wa.me/+918086600582?text=Hello%20Sh.Shop%20Support%2C%20I%20need%20assistance%20with%20...",
+      href: "https://wa.me/+918086600582?text=Hello%20SH.SALE%20Support%2C%20I%20need%20assistance%20with%20...",
       color: "bg-green-500",
       badge: "Most Popular",
     },
@@ -43,8 +43,8 @@ export default function Support() {
       title: "Email Support",
       description:
         "Detailed assistance with attachments. We'll respond within 2 hours",
-      action: "support@sh.shop",
-      href: "mailto:muhammedsuhaibpottayil@gmail.com",
+      action: "helpeatsh@gmail.com",
+      href: "mailto:helpeatsh@gmail.com",
       variant: "outline",
       color: "bg-purple-500",
     },
@@ -59,7 +59,7 @@ export default function Support() {
   return (
     <div className="min-h-screen flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
       <MainHeader
-        title="Sh.Shop Support"
+        title="SH.SALE Support"
         subtitle="Your dedicated partner for seamless retail operations. We're here to help you succeed 24/7."
       />
       {/* Header Section */}

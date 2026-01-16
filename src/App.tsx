@@ -62,16 +62,20 @@ const CategoryEdit = lazyWithErrorHandling(
   () => import("./pages/category/CategoryEdit"),
   "CategoryEdit"
 );
+const CategoryView = lazyWithErrorHandling(
+  () => import("./pages/category/CategoryView"),
+  "CategoryView"
+);
 const TermsAndConditions = lazyWithErrorHandling(
-  () => import("./pages/sh.shop/TermsAndConditions"),
+  () => import("./pages/sh.main/TermsAndConditions"),
   "TermsAndConditions"
 );
 const PrivacyPolicy = lazyWithErrorHandling(
-  () => import("./pages/sh.shop/PrivacyPolicy"),
+  () => import("./pages/sh.main/PrivacyPolicy"),
   "PrivacyPolicy"
 );
 const Support = lazyWithErrorHandling(
-  () => import("./pages/sh.shop/Support"),
+  () => import("./pages/sh.main/Support"),
   "Support"
 );
 const NotFound = lazyWithErrorHandling(
@@ -112,7 +116,7 @@ function App() {
                 <Route path="/categories" element={<Categories />} />
                 <Route path="/category/new" element={<CategoryNew />} />
                 <Route path="/category/edit/:id" element={<CategoryEdit />} />
-                
+                <Route path="/category/view/:id" element={<CategoryView />} />
               </Route>
             </Route>
             <Route

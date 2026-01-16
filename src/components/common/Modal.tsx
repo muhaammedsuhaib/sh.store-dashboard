@@ -1,19 +1,25 @@
 // components/common/Modal.tsx
-import React, { useEffect, useRef } from 'react';
-import { X, AlertCircle, CheckCircle2, Info, AlertTriangle } from 'lucide-react';
-import { Button } from './Button';
+import React, { useEffect, useRef } from "react";
+import {
+  X,
+  AlertCircle,
+  CheckCircle2,
+  Info,
+  AlertTriangle,
+} from "lucide-react";
+import { Button } from "./Button";
 
 export interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   title: string;
   children: React.ReactNode;
-  size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  size?: "sm" | "md" | "lg" | "xl" | "full";
   closeOnOverlayClick?: boolean;
   showCloseButton?: boolean;
   className?: string;
   footer?: React.ReactNode;
-  variant?: 'default' | 'danger' | 'success' | 'warning' | 'info';
+  variant?: "default" | "danger" | "success" | "warning" | "info";
   loading?: boolean;
   hideHeader?: boolean;
 }
@@ -23,12 +29,12 @@ const Modal: React.FC<ModalProps> = ({
   onClose,
   title,
   children,
-  size = 'md',
+  size = "md",
   closeOnOverlayClick = true,
   showCloseButton = true,
-  className = '',
+  className = "",
   footer,
-  variant = 'default',
+  variant = "default",
   loading = false,
   hideHeader = false,
 }) => {
@@ -37,19 +43,19 @@ const Modal: React.FC<ModalProps> = ({
   // Handle ESC key press
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         onClose();
       }
     };
 
     if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'hidden';
+      document.addEventListener("keydown", handleEscape);
+      document.body.style.overflow = "hidden";
     }
 
     return () => {
-      document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'unset';
+      document.removeEventListener("keydown", handleEscape);
+      document.body.style.overflow = "unset";
     };
   }, [isOpen, onClose]);
 
@@ -61,22 +67,28 @@ const Modal: React.FC<ModalProps> = ({
   };
 
   const variantStyles = {
-    default: '',
-    danger: 'border-red-200 dark:border-red-800',
-    success: 'border-emerald-200 dark:border-emerald-800',
-    warning: 'border-amber-200 dark:border-amber-800',
-    info: 'border-blue-200 dark:border-blue-800',
+    default: "",
+    danger: "border-red-200 dark:border-red-800",
+    success: "border-emerald-200 dark:border-emerald-800",
+    warning: "border-amber-200 dark:border-amber-800",
+    info: "border-blue-200 dark:border-blue-800",
   };
 
   const getVariantIcon = () => {
     switch (variant) {
-      case 'danger':
-        return <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400" />;
-      case 'success':
-        return <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />;
-      case 'warning':
-        return <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />;
-      case 'info':
+      case "danger":
+        return (
+          <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400" />
+        );
+      case "success":
+        return (
+          <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+        );
+      case "warning":
+        return (
+          <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+        );
+      case "info":
         return <Info className="h-5 w-5 text-blue-600 dark:text-blue-400" />;
       default:
         return null;
@@ -86,16 +98,16 @@ const Modal: React.FC<ModalProps> = ({
   if (!isOpen) return null;
 
   const sizeClasses = {
-    sm: 'max-w-md',
-    md: 'max-w-lg',
-    lg: 'max-w-2xl',
-    xl: 'max-w-4xl',
-    full: 'max-w-full mx-4',
+    sm: "max-w-md",
+    md: "max-w-lg",
+    lg: "max-w-2xl",
+    xl: "max-w-4xl",
+    full: "max-w-full mx-4",
   };
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 backdrop-blur-sm transition-all duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-linear-to-r from-slate-900 to-blue-900 bg-opacity-50 backdrop-blur-sm transition-all duration-200"
       onClick={handleOverlayClick}
     >
       <div
@@ -107,7 +119,7 @@ const Modal: React.FC<ModalProps> = ({
           ${variantStyles[variant]}
           transform transition-all duration-200 ease-out
           max-h-[90vh] overflow-hidden flex flex-col
-          ${loading ? 'opacity-70 pointer-events-none' : ''}
+          ${loading ? "opacity-70 pointer-events-none" : ""}
           ${className}
         `}
       >
@@ -131,10 +143,8 @@ const Modal: React.FC<ModalProps> = ({
               <button
                 onClick={onClose}
                 disabled={loading}
-                className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 
-                         hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all 
-                         duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
-                         disabled:opacity-50 disabled:cursor-not-allowed"
+                className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300  hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all  duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent    disabled:opacity-50 disabled:cursor-not-allowed"
+                title="Close"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -143,9 +153,7 @@ const Modal: React.FC<ModalProps> = ({
         )}
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto p-6">
-          {children}
-        </div>
+        <div className="flex-1 overflow-y-auto p-6">{children}</div>
 
         {/* Footer - Optional */}
         {footer && (
@@ -167,7 +175,7 @@ export const ConfirmationModal: React.FC<{
   message: string;
   confirmText?: string;
   cancelText?: string;
-  variant?: 'default' | 'danger' | 'success';
+  variant?: "default" | "danger" | "success";
   loading?: boolean;
 }> = ({
   isOpen,
@@ -175,19 +183,19 @@ export const ConfirmationModal: React.FC<{
   onConfirm,
   title,
   message,
-  confirmText = 'Confirm',
-  cancelText = 'Cancel',
-  variant = 'default',
+  confirmText = "Confirm",
+  cancelText = "Cancel",
+  variant = "default",
   loading = false,
 }) => {
   const getConfirmButtonVariant = () => {
     switch (variant) {
-      case 'danger':
-        return 'danger';
-      case 'success':
-        return 'primary';
+      case "danger":
+        return "danger";
+      case "success":
+        return "primary";
       default:
-        return 'primary';
+        return "primary";
     }
   };
 
