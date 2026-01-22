@@ -96,14 +96,24 @@ const Dropdown: React.FC<DropdownProps> = ({
         </div>
         <div className="flex items-center gap-1 ml-2">
           {clearable && hasValue && (
-            <button
-              type="button"
-              onClick={handleClear}
-              className="p-1 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-md transition-colors"
+            <div
+              role="button"
+              tabIndex={0}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleClear(e as any);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.stopPropagation();
+                  handleClear(e as any);
+                }
+              }}
+              className="p-1 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-md transition-colors cursor-pointer"
               title={clearLabel}
             >
               <X className="h-3 w-3 text-red-500 dark:text-slate-400" />
-            </button>
+            </div>
           )}
           <ChevronDown
             className={`h-4 w-4 transition-transform shrink-0 ${
