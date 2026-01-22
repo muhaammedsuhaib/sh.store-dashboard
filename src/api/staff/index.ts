@@ -12,7 +12,7 @@ const fetchStaff = async (): Promise<any[]> => {
 /**
  * Custom hook to access staff data globally
  */
-export const useStaff = () => {
+const useStaff = () => {
   return useQuery<any[]>({
     queryKey: ["staff"],
     queryFn: fetchStaff,
@@ -25,6 +25,7 @@ export const useStaff = () => {
 /**
  * Utility to manually refetch staff data from outside React (e.g. after CRUD ops)
  */
-export const refetchStaff = (queryClient: QueryClient) => {
+const refetchStaff = (queryClient: QueryClient) => {
   queryClient.invalidateQueries({ queryKey: ["staff"] });
 };
+export { useStaff, refetchStaff };

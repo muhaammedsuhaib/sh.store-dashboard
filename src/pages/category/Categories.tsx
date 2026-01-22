@@ -13,7 +13,11 @@ import {
 } from "lucide-react";
 import { Button } from "../../components/common/Button";
 import { toast } from "react-hot-toast";
-import { useUpdateCategory } from "../../api/category";
+import {
+  useCategoryLabels,
+  useCategoryStats,
+  useUpdateCategory,
+} from "../../api/category";
 import { Loader } from "../../components/common/Loader";
 import { ErrorState } from "../../components/common/ErrorState";
 import type { Category } from "../../types/category";
@@ -26,7 +30,6 @@ import { DataTable } from "../../components/common/DataTable";
 import { ConfirmActionModal } from "../../components/common/ConfirmActionModal";
 import { getParentCategories } from "../../utils/category.utils.ts";
 import { useCategoryFilters } from "../../hooks/useCategoryFilters.ts";
-import { useCategoriesStats } from "../../api/category/get_categories_stats.ts";
 
 export default function Categories() {
   const navigate = useNavigate();
@@ -35,8 +38,13 @@ export default function Categories() {
     isLoading: isLoadingCategoriesStats,
     error: categoriesStatsError,
     refetch: refetchCategoriesStats,
-  } = useCategoriesStats();
-
+  } = useCategoryStats();
+  const {
+    data: CategoriesLabels,
+    isLoading: isLoadingCategoriesLabels,
+    error: categoriesLabelsError,
+    refetch: refetchCategoriesLabels,
+  } = useCategoryLabels();
   const { mutate: updateCategory, isPending: updateCategoryLoading } =
     useUpdateCategory();
 
@@ -63,13 +71,13 @@ export default function Categories() {
 
   const categories: Category[] = categoriesData?.data || [];
   const parentCategories = useMemo(
-    () => getParentCategories(categories),
-    [categories]
+    () => getParentCategories(CategoriesLabels || []),
+    [CategoriesLabels],
   );
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
-    null
+    null,
   );
 
   const handleCreateCategory = useCallback(() => {
@@ -80,14 +88,14 @@ export default function Categories() {
     (id: String) => {
       navigate(`/category/edit/${id}`);
     },
-    [navigate]
+    [navigate],
   );
 
   const handleViewCategory = useCallback(
     (id: String) => {
       navigate(`/category/view/${id}`);
     },
-    [navigate]
+    [navigate],
   );
 
   const handleSoftDelete = () => {
@@ -96,6 +104,10 @@ export default function Categories() {
 
     formData.append("id", selectedCategory?._id);
     formData.append("is_active", String(!selectedCategory?.is_active));
+    formData.append(
+      "existing_images",
+      JSON.stringify(selectedCategory?.images ?? []),
+    );
 
     updateCategory(formData, {
       onSuccess: () => {
@@ -104,9 +116,10 @@ export default function Categories() {
         toast.success(
           `Category ${
             !selectedCategory.is_active ? "activated" : "deactivated"
-          } successfully! 🎉`
+          } successfully! `,
         );
-        refetchCategories();
+        refetchCategoriesLabels();
+        refetchCategoriesStats();
       },
       onError: (err: any) => {
         const errorMessage =
@@ -127,11 +140,11 @@ export default function Categories() {
   };
 
   // Loading state
-  if (isLoadingCategoriesStats) {
+  if (isLoadingCategoriesStats || isLoadingCategoriesLabels) {
     return <Loader text="Loading categories..." />;
   }
 
-  // Error state
+  // Error states
   if (categoriesError) {
     return (
       <ErrorState
@@ -146,7 +159,16 @@ export default function Categories() {
       <ErrorState
         error={categoriesStatsError}
         onRetry={() => refetchCategoriesStats()}
-        title="Failed to load categories"
+        title="Failed to load category states"
+      />
+    );
+  }
+  if (categoriesLabelsError) {
+    return (
+      <ErrorState
+        error={categoriesLabelsError}
+        onRetry={() => refetchCategoriesLabels()}
+        title="Failed to load category labels"
       />
     );
   }

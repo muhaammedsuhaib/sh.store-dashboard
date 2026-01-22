@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useCategories } from "../api/category/get_categories";
 import { useDebouncedValue } from "./useDebouncedValue";
+import { useCategories } from "../api/category";
 
 // Types
 type StatusFilter = "all" | "active" | "inactive";
@@ -13,25 +13,25 @@ export const useCategoryFilters = () => {
 
   // Local state synced with URL
   const [searchTerm, setSearchTerm] = useState(
-    searchParams.get("search") || ""
+    searchParams.get("search") || "",
   );
   const [statusFilter, setStatusFilter] = useState<StatusFilter>(
-    (searchParams.get("status") as StatusFilter) || "all"
+    (searchParams.get("status") as StatusFilter) || "all",
   );
   const [parentFilter, setParentFilter] = useState<string>(
-    searchParams.get("parent") || "all"
+    searchParams.get("parent") || "all",
   );
   const [sortBy, setSortBy] = useState<SortBy>(
-    (searchParams.get("sortBy") as SortBy) || "name"
+    (searchParams.get("sortBy") as SortBy) || "name",
   );
   const [sortOrder, setSortOrder] = useState<SortOrder>(
-    (searchParams.get("sortOrder") as SortOrder) || "asc"
+    (searchParams.get("sortOrder") as SortOrder) || "asc",
   );
   const [currentPage, setCurrentPage] = useState(
-    Number(searchParams.get("page")) || 1
+    Number(searchParams.get("page")) || 1,
   );
   const [pageSize, setPageSize] = useState(
-    Number(searchParams.get("pageSize")) || 5
+    Number(searchParams.get("pageSize")) || 5,
   );
 
   // Debounced search

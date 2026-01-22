@@ -3,7 +3,7 @@ import { Sidebar } from "./Sidebar";
 import { Menu, X } from "lucide-react";
 import { Outlet } from "react-router-dom";
 import { Loader } from "./common/Loader";
-import { useStaff } from "../api/staff/get_staff";
+import { useStaff } from "../api/staff";
 
 export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -111,7 +111,7 @@ export default function Layout() {
                     className="w-8 h-8 rounded-full object-cover"
                   />
                 ) : (
-                  <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-linear-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
                     <span className="text-sm font-medium text-white">
                       {staff?.data?.name?.charAt(0)?.toUpperCase() ?? "A"}
                     </span>

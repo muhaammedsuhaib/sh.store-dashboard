@@ -54,7 +54,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   }, []);
 
   const filteredOptions = options.filter((option) =>
-    option.label.toLowerCase().includes(searchTerm.toLowerCase())
+    option.label.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const selectedOption = options.find((option) => option.value === value);
@@ -151,9 +151,10 @@ const Dropdown: React.FC<DropdownProps> = ({
               filteredOptions.map((option) => (
                 <button
                   key={option.value}
+                  title={option.label}
                   onClick={() => handleOptionSelect(option.value)}
                   className={`
-                    w-full text-left px-3 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors
+                    w-full text-left px-3 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors truncate 
                     ${
                       value === option.value
                         ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400"

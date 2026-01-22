@@ -14,19 +14,14 @@ import { useNavigate } from "react-router-dom";
 import SubHeader from "../../components/common/SubHeader";
 import QuickTip from "../../components/common/QuickTip";
 import { toast } from "react-hot-toast";
-import { useCreateCategory } from "../../api/category";
-import { useCategories } from "../../api/category/get_categories";
+import {
+  useCategoryLabels,
+  useCategoryStats,
+  useCreateCategory,
+} from "../../api/category";
 import Dropdown from "../../components/common/Dropdown";
-
-// Types
-interface CategoryFormData {
-  name: string;
-  description: string;
-  images: string[];
-  urlInput?: string;
-  parent: string | null;
-  is_active: boolean;
-}
+import type { CategoryFormData, CategoryLabel } from "../../types/category";
+import { is_valid_url } from "../../utils/url.utils";
 
 // Custom hook for image management
 const useImageManager = () => {
@@ -46,7 +41,7 @@ const useImageManager = () => {
 
       return { success: true, count: imageFiles.length };
     },
-    []
+    [],
   );
 
   const removeUploadedImage = useCallback((index: number) => {
@@ -60,22 +55,14 @@ const useImageManager = () => {
   };
 };
 
-// Simple URL validation
-const isValidUrl = (urlString: string): boolean => {
-  try {
-    const url = new URL(urlString);
-    return url.protocol === "http:" || url.protocol === "https:";
-  } catch {
-    return false;
-  }
-};
+
 
 // Basic Info Section Component
 const BasicInfoSection = ({
   register,
   errors,
   watchedDescription,
-  parentCategories,
+  categoriesLabels,
   isLoadingCategories,
   categoriesError,
   selectedParent,
@@ -85,18 +72,22 @@ const BasicInfoSection = ({
   errors: any;
   watchedDescription: string;
   watchedName: string;
-  parentCategories: any;
+  categoriesLabels: any;
   isLoadingCategories: boolean;
   categoriesError: any;
   selectedParent: string | null;
   onParentChange: (value: string | null) => void;
 }) => {
-  // Prepare dropdown options
   const parentOptions = useMemo(() => {
-    const options = [{ value: "", label: "No Parent (Main Category)" }];
+    const options = [
+      {
+        value: "",
+        label: "No Parent (Main Category)",
+      },
+    ];
 
-    if (Array.isArray(parentCategories?.data)) {
-      parentCategories.data.forEach((category: any) => {
+    if (Array.isArray(categoriesLabels)) {
+      categoriesLabels.forEach((category) => {
         options.push({
           value: category._id,
           label: category.name,
@@ -105,7 +96,7 @@ const BasicInfoSection = ({
     }
 
     return options;
-  }, [parentCategories]);
+  }, [categoriesLabels]);
 
   return (
     <div className="mb-8">
@@ -292,7 +283,7 @@ const ImagePreviewGrid = React.memo(
         </div>
       ))}
     </div>
-  )
+  ),
 );
 
 export default function CategoryNew() {
@@ -301,12 +292,19 @@ export default function CategoryNew() {
   const [selectedParent, setSelectedParent] = useState<string | null>(null);
   const { uploadedImages, handleFileUpload, removeUploadedImage } =
     useImageManager();
+
   const {
-    data: parentCategories,
-    isLoading: isLoadingCategories,
-    error: categoriesError,
-    refetch: refetchCategories,
-  } = useCategories();
+    data: categoriesLabelsData,
+    isLoading: isLoadingCategoriesLabels,
+    error: categoriesLabelsError,
+    refetch: refetchCategoriesLabels,
+  } = useCategoryLabels();
+  const { refetch: refetchStatsCategories } = useCategoryStats();
+  const categoriesLabels: CategoryLabel[] = useMemo(() => {
+    return (categoriesLabelsData || []).filter(
+      (label) => label.is_active === true,
+    );
+  }, [categoriesLabelsData]);
 
   const { mutate: categoryMutate, isPending: categoryLoading } =
     useCreateCategory();
@@ -341,7 +339,7 @@ export default function CategoryNew() {
       setSelectedParent(value);
       setValue("parent", value, { shouldValidate: true });
     },
-    [setValue]
+    [setValue],
   );
   // Memoized values
   const allImages = useMemo(
@@ -349,12 +347,12 @@ export default function CategoryNew() {
       ...watchedImages,
       ...uploadedImages.map((file) => URL.createObjectURL(file)),
     ],
-    [watchedImages, uploadedImages]
+    [watchedImages, uploadedImages],
   );
 
   const isFormValid = useMemo(
     () => isValid && watchedName?.trim().length >= 3,
-    [isValid, watchedName]
+    [isValid, watchedName],
   );
 
   // Simple URL add handler
@@ -366,7 +364,7 @@ export default function CategoryNew() {
 
     try {
       // Simple URL validation
-      if (!isValidUrl(currentUrl)) {
+      if (!is_valid_url(currentUrl)) {
         setError("urlInput", {
           message: "Please enter a valid URL (e.g., https://example.com)",
         });
@@ -403,7 +401,7 @@ export default function CategoryNew() {
         setError("images", { message: result.error });
       }
     },
-    [handleFileUpload, setError]
+    [handleFileUpload, setError],
   );
 
   const removeUrlImage = useCallback(
@@ -412,7 +410,7 @@ export default function CategoryNew() {
       setValue("images", newImages, { shouldValidate: true });
       toast.success("Image URL removed");
     },
-    [watchedImages, setValue]
+    [watchedImages, setValue],
   );
 
   const handleImageRemove = useCallback(
@@ -424,7 +422,7 @@ export default function CategoryNew() {
         toast.success("Image removed");
       }
     },
-    [watchedImages.length, removeUrlImage, removeUploadedImage]
+    [watchedImages.length, removeUrlImage, removeUploadedImage],
   );
 
   const onSubmit = useCallback(
@@ -443,7 +441,8 @@ export default function CategoryNew() {
         categoryMutate(formData, {
           onSuccess: () => {
             toast.success("Category created successfully! 🎉");
-            refetchCategories();
+            refetchCategoriesLabels();
+            refetchStatsCategories();
             setTimeout(() => navigate("/categories"), 1500);
           },
           onError: (err: any) => {
@@ -464,7 +463,7 @@ export default function CategoryNew() {
         toast.error(errorMessage);
       }
     },
-    [uploadedImages, categoryMutate, navigate, setError]
+    [uploadedImages, categoryMutate, navigate, setError],
   );
 
   return (
@@ -485,9 +484,10 @@ export default function CategoryNew() {
               errors={errors}
               watchedDescription={watchedDescription}
               watchedName={watchedName}
-              parentCategories={parentCategories}
-              isLoadingCategories={isLoadingCategories}
-              categoriesError={categoriesError}
+              // parentCategories={parentCategories}
+              categoriesLabels={categoriesLabels}
+              isLoadingCategories={isLoadingCategoriesLabels}
+              categoriesError={categoriesLabelsError}
               selectedParent={selectedParent}
               onParentChange={handleParentChange}
             />

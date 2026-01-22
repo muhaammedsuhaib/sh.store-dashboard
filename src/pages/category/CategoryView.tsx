@@ -16,9 +16,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import SubHeader from "../../components/common/SubHeader";
 import QuickTip from "../../components/common/QuickTip";
 import { toast } from "react-hot-toast";
-import { useCategories } from "../../api/category/get_categories";
 import Dropdown from "../../components/common/Dropdown";
-import { useGetCategory, useUpdateCategory } from "../../api/category";
+import { useCategories, useGetCategory, useUpdateCategory } from "../../api/category";
 import { Loader } from "../../components/common/Loader";
 
 // Types
